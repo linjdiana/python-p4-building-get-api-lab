@@ -12,7 +12,7 @@ db = SQLAlchemy(metadata=metadata)
 class Bakery(db.Model, SerializerMixin):
     __tablename__ = 'bakeries'
 
-    serialize_rules = ('-bakedgoods.bakery')
+    serialize_rules = ('-baked_goods.bakery')
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True)
@@ -23,9 +23,9 @@ class Bakery(db.Model, SerializerMixin):
         return f'<Bakery {self.name}>'
 
 class BakedGood(db.Model, SerializerMixin):
-    __tablename__ = 'bakedgoods'
+    __tablename__ = 'baked_goods'
 
-    serialize_rules = ('-bakery.bakedgoods')
+    serialize_rules = ('-bakery.baked_goods')
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True)
@@ -36,4 +36,4 @@ class BakedGood(db.Model, SerializerMixin):
     bakery_id = db.Column(db.Integer, db.ForeignKey('bakeries.id'))
 
     def __repr__(self):
-        return f'<Baked Good {self.name}>'
+        return f'<Baked Good: {self.name}, Price: {self.price}>'

@@ -27,6 +27,7 @@ def bakeries():
             "created_at": bakery.created_at,
             "updated_at": bakery.updated_at,
         }
+        # bakery_dict = bakery.to_dict()
         bakeries.append(bakery_dict)
 
     response = make_response(
@@ -37,7 +38,20 @@ def bakeries():
 
 @app.route('/bakeries/<int:id>')
 def bakery_by_id(id):
-    return ''
+    bakery = Bakery.query.filter(Bakery.id == id).first()
+
+    bakery_dict = {
+            "name": bakery.name,
+            "created_at": bakery.created_at,
+            "updated_at": bakery.updated_at,
+        }
+
+    response = make_response(
+        bakery_dict,
+        200
+    )
+
+    return response
 
 @app.route('/baked_goods/by_price')
 def baked_goods_by_price():
